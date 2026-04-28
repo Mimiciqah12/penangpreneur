@@ -57,12 +57,17 @@ class RegistrationController extends Controller
         ]);
 
        // 5. Send confirmation email to the user
-Mail::send('emails.registration_confirmation', [
-    'registration' => $registration,
-], function ($message) use ($registration) {
-    $message->to($registration->email, $registration->full_name)
-            ->subject('Registration Confirmation — Entrepreneur Portal');
-});
+try {
+    Mail::send('emails.registration_confirmation', [
+        'registration' => $registration,
+    ], function ($message) use ($registration) {
+        $message->to($registration->email, $registration->full_name)
+                ->subject('Registration Confirmation — Entrepreneur Portal');
+    });
+} catch (\Exception $e) {
+    \Log::error('Mail failed: ' . $e->getMessage());
+    // Continue even if mail fails — don't crash the server
+}
 
         // 6. Redirect to success page, passing the reference number
         return redirect()->route('register.success')
