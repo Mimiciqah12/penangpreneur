@@ -1356,17 +1356,6 @@
                         <button class="carousel-dot" data-index="2"></button>
                     </div>
                 </div>
-
-                <div class="programme-tags reveal" style="justify-content:center; margin-top:1.75rem;">
-                    <span class="prog-tag">Insentif</span>
-                    <span class="prog-tag">Bantuan Geran</span>
-                    <span class="prog-tag">Pinjaman</span>
-                    <span class="prog-tag">Bimbingan Usahawan</span>
-                    <span class="prog-tag">SIRI:SPS</span>
-                </div>
-                <div style="text-align:center; margin-top:1.5rem;" class="reveal">
-                    <a href="{{ route('register') }}" class="btn btn-primary btn-lg">Daftar Sekarang</a>
-                </div>
             </div>
         </section>
     </main>
