@@ -217,6 +217,7 @@
         }
 
         .card-inner { padding: 1.4rem; }
+        
         @media (min-width: 900px) {
             .card-inner { padding: 2rem; }
         }
@@ -497,13 +498,11 @@
                                     <label for="product_image">Product Image</label>
                                     <input type="file" id="product_image" name="product_image" accept="image/*">
                                 </div>
+                                
                                 <div class="field">
-                                    <label for="product_image">Product Image</label>
-                                    <input type="file" id="product_image" name="product_image" accept="image/*">
-                                </div>
-                                 <div class="field">
                                     <label for="premises_image">Premises Image</label>
                                     <input type="file" id="premises_image" name="premises_image" accept="image/*">
+                                </div>
 
                                 <div class="field span-2">
                                     <label for="product_description">Product Description</label>
@@ -524,7 +523,7 @@
 
     <footer>
         <div class="wrap footer-inner">
-            <p class="footer-copy">&copy; {{ 2026 }} PenangPreneur Portal. All rights reserved.</p>
+            <p class="footer-copy">&copy; {{ date('Y') }} PenangPreneur Portal. All rights reserved.</p>
             <ul class="footer-links">
                 <li><a href="{{ route('admin.index') }}">Admin</a></li>
                 <li><span class="footer-soon" title="Coming soon">Privacy policy</span></li>
