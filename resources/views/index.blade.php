@@ -728,6 +728,93 @@
             .programme-section { padding: 2.5rem 0; }
         }
 
+        /* ── CAROUSEL ── */
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            background: #000;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            flex-shrink: 0;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.9);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .carousel-btn:hover {
+            background: #fff;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .carousel-prev { left: 1rem; }
+        .carousel-next { right: 1rem; }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            padding: 0;
+        }
+
+        .carousel-dot.active {
+            background: #fff;
+            transform: scale(1.3);
+        }
+
+        @media (max-width: 640px) {
+            .carousel-btn { width: 36px; height: 36px; }
+            .carousel-prev { left: 0.5rem; }
+            .carousel-next { right: 0.5rem; }
+        }
+
         /* ── ABOUT ── */
         .about-section {
             background: var(--bg);
@@ -1082,7 +1169,7 @@
                     </div>
                 </div>
                 <div class="hero-image-wrap" id="heroImg">
-                    <img src="{{ asset('images/TREND_Logo_transparent.png') }}" alt="TREND — Rural Development, Agrotechnology & Food Security, and Entrepreneurship" class="hero-logo-img">
+                    <img src="{{ asset('images/TREND_Logo_transparent.png') }}" alt="TREND — Agrotechnology & Food Security, Rural Development and Entrepreneurship" class="hero-logo-img">
                 </div>
             </div>
         </section>
@@ -1226,21 +1313,51 @@
         <!-- OUR PROGRAMME -->
         <section class="programme-section" aria-labelledby="programme-heading">
             <div class="wrap">
-                <div class="programme-grid">
-                    <div class="slide-in-left">
-                        <img src="{{ asset('images/programme-banner.png') }}" alt="Jelajah Usahawan Pulau Pinang" class="programme-image">
-                    </div>
-                    <div class="slide-in-right">
-                        <p class="section-label">Our Programme</p>
-                        <h2 id="programme-heading" class="section-title">Jelajah Usahawan Pulau Pinang</h2>
-                        <p style="font-size:0.9375rem; color:var(--text-muted); line-height:1.75; margin-bottom:1rem;">
-                            A programme by the Pejabat EXCO Pembangunan Luar Bandar, Agroteknologi & Keterjaminan Makanan dan Keusahawanan to empower Penang entrepreneurs with access to government agencies, incentives, grants, and business guidance.
-                        </p>
-                        
-                        <div style="margin-top:1.75rem;">
-                            <a href="{{ route('register') }}" class="btn btn-primary btn-lg">Daftar Sekarang</a>
+                <div class="reveal" style="text-align:center; margin-bottom:2rem;">
+                    <p class="section-label">Our Programme</p>
+                    <h2 id="programme-heading" class="section-title">Jelajah Usahawan Pulau Pinang</h2>
+                    <p class="section-lead" style="margin:0 auto;">A programme empowering Penang entrepreneurs with access to government agencies, incentives, grants, and business guidance.</p>
+                </div>
+
+                <!-- CAROUSEL -->
+                <div class="carousel reveal" id="programmeCarousel">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide">
+                            <img src="{{ asset('images/programme1.png') }}" alt="Jelajah Usahawan Daerah Barat Daya 2025">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="{{ asset('images/programme2.png') }}" alt="Jelajah Usahawan Seberang Perai Utara">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="{{ asset('images/programme3.png') }}" alt="Jelajah Usahawan Pulau Pinang SIRI I:SPS">
                         </div>
                     </div>
+
+                    <!-- Arrows -->
+                    <button class="carousel-btn carousel-prev" id="prevBtn" aria-label="Previous">
+                        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                    </button>
+                    <button class="carousel-btn carousel-next" id="nextBtn" aria-label="Next">
+                        <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                    </button>
+
+                    <!-- Dots -->
+                    <div class="carousel-dots" id="carouselDots">
+                        <button class="carousel-dot active" data-index="0"></button>
+                        <button class="carousel-dot" data-index="1"></button>
+                        <button class="carousel-dot" data-index="2"></button>
+                    </div>
+                </div>
+
+                <div class="programme-tags reveal" style="justify-content:center; margin-top:1.75rem;">
+                    <span class="prog-tag">Insentif</span>
+                    <span class="prog-tag">Bantuan Geran</span>
+                    <span class="prog-tag">Pinjaman</span>
+                    <span class="prog-tag">Bimbingan Usahawan</span>
+                    <span class="prog-tag">SIRI:SPS</span>
+                </div>
+                <div style="text-align:center; margin-top:1.5rem;" class="reveal">
+                    <a href="{{ route('register') }}" class="btn btn-primary btn-lg">Daftar Sekarang</a>
                 </div>
             </div>
         </section>
@@ -1314,6 +1431,38 @@
                 if (heroImg) heroImg.classList.add('visible');
             }, 400);
         });
+    </script>
+
+    <!-- CAROUSEL SCRIPT -->
+    <script>
+        const track = document.getElementById('carouselTrack');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const total = 3;
+        let current = 0;
+        let autoTimer;
+
+        function goTo(index) {
+            current = (index + total) % total;
+            track.style.transform = `translateX(-${current * 100}%)`;
+            dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => { goTo(current + 1); resetAuto(); });
+        document.getElementById('prevBtn').addEventListener('click', () => { goTo(current - 1); resetAuto(); });
+        dots.forEach(dot => dot.addEventListener('click', () => { goTo(+dot.dataset.index); resetAuto(); }));
+
+        function startAuto() { autoTimer = setInterval(() => goTo(current + 1), 4000); }
+        function resetAuto() { clearInterval(autoTimer); startAuto(); }
+
+        // Touch swipe support
+        let startX = 0;
+        track.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+        track.addEventListener('touchend', e => {
+            const diff = startX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) { goTo(diff > 0 ? current + 1 : current - 1); resetAuto(); }
+        });
+
+        startAuto();
     </script>
 
 </body>
