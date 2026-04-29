@@ -371,14 +371,13 @@
             width: 100%;
             max-width: 460px;
             object-fit: contain;
-            /* subtle glow effect to make logo pop on dark hero */
             filter: drop-shadow(0 8px 32px rgba(96,165,250,0.25));
             animation: floatLogo 4s ease-in-out infinite;
         }
 
         @keyframes floatLogo {
             0%, 100% { transform: translateY(0px); }
-            50%       { transform: translateY(-10px); }
+            50%        { transform: translateY(-10px); }
         }
 
         .hero-eyebrow {
@@ -728,13 +727,14 @@
             .programme-section { padding: 2.5rem 0; }
         }
 
-        /* ── CAROUSEL ── */
+        /* ── CAROUSEL (KEMAS KINI BARU) ── */
         .carousel {
             position: relative;
             overflow: hidden;
             border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-            background: #000;
+            box-shadow: 0 12px 32px -8px rgba(15,23,42,0.2);
+            background: var(--bg);
+            border: 1px solid var(--border);
         }
 
         .carousel-track {
@@ -746,13 +746,24 @@
         .carousel-slide {
             min-width: 100%;
             flex-shrink: 0;
+            position: relative;
+        }
+
+        .carousel-slide::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(15,23,42,0.65) 0%, rgba(15,23,42,0) 35%);
+            pointer-events: none;
         }
 
         .carousel-slide img {
             width: 100%;
-            height: auto;
+            aspect-ratio: 16 / 7; 
+            max-height: 500px;
             display: block;
             object-fit: cover;
+            object-position: center;
         }
 
         .carousel-btn {
@@ -761,58 +772,65 @@
             transform: translateY(-50%);
             width: 44px;
             height: 44px;
-            background: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(4px);
             border: none;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            transition: all 0.2s ease;
+            color: var(--brand);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.25s ease;
             z-index: 10;
         }
 
         .carousel-btn:hover {
             background: #fff;
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            transform: translateY(-50%) scale(1.08);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+            color: var(--accent);
         }
 
-        .carousel-prev { left: 1rem; }
-        .carousel-next { right: 1rem; }
+        .carousel-prev { left: 1.25rem; }
+        .carousel-next { right: 1.25rem; }
 
         .carousel-dots {
             position: absolute;
-            bottom: 1rem;
+            bottom: 1.25rem;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 0.5rem;
+            gap: 0.6rem;
             z-index: 10;
         }
 
         .carousel-dot {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.4);
             border: none;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             padding: 0;
         }
 
         .carousel-dot.active {
             background: #fff;
-            transform: scale(1.3);
+            width: 24px; 
+            border-radius: 4px;
         }
 
         @media (max-width: 640px) {
+            .carousel-slide img {
+                aspect-ratio: 4 / 3;
+            }
             .carousel-btn { width: 36px; height: 36px; }
-            .carousel-prev { left: 0.5rem; }
-            .carousel-next { right: 0.5rem; }
+            .carousel-prev { left: 0.75rem; }
+            .carousel-next { right: 0.75rem; }
+            .carousel-dots { bottom: 1rem; }
         }
 
         /* ── ABOUT ── */
@@ -1029,16 +1047,16 @@
             .mobile-cta { display: block; }
             body { padding-bottom: 5rem; }
 
-            /* Top bar — show only phone on mobile, hide address & email */
+            /* Top bar */
             .top-bar-contacts .top-bar-item:not(:first-child) { display: none; }
             .top-bar-inner { justify-content: space-between; }
 
-            /* Hero — more padding & breathe room */
+            /* Hero */
             .hero-grid { padding: 2.5rem 1.5rem 3rem; }
             .hero h1 { font-size: 2rem; }
             .hero-lead { font-size: 0.975rem; }
 
-            /* Hero buttons — stack full width */
+            /* Hero buttons */
             .hero-cta { flex-direction: column; gap: 0.6rem; }
             .btn-hero, .btn-hero-ghost {
                 width: 100%;
@@ -1046,7 +1064,7 @@
                 padding: 0.9rem 1.5rem;
             }
 
-            /* Contact strip — single column, clean list */
+            /* Contact strip */
             .contact-strip-inner {
                 grid-template-columns: 1fr;
             }
@@ -1057,7 +1075,7 @@
             }
             .contact-item:last-child { border-bottom: none; }
 
-            /* Value cards — single column */
+            /* Value cards */
             .value-grid { grid-template-columns: 1fr; }
 
             /* About section */
@@ -1098,7 +1116,6 @@
 </head>
 <body>
 
-    <!-- TOP CONTACT BAR -->
     <div class="top-bar">
         <div class="wrap top-bar-inner">
             <div class="top-bar-contacts">
@@ -1122,7 +1139,6 @@
         </div>
     </div>
 
-    <!-- HEADER -->
     <header>
         <div class="wrap header-inner">
             <a href="{{ url('/') }}" class="logo" aria-label="PenangPreneur Portal — Home">
@@ -1144,11 +1160,10 @@
     </header>
 
     <main>
-        <!-- HERO -->
         <section class="hero" aria-labelledby="hero-heading">
             <div class="hero-pattern" aria-hidden="true"></div>
             <div class="wrap hero-grid">
-                <div class="hero-copy">
+                <div class="hero-copy" style="padding-left: 2rem;">
                     <div class="hero-eyebrow">
                         <span class="hero-eyebrow-dot"></span>
                         Official Business Registration
@@ -1174,7 +1189,6 @@
             </div>
         </section>
 
-        <!-- CONTACT INFO STRIP -->
         <section id="contact" aria-label="Contact information">
             <div class="contact-strip">
                 <div class="wrap" style="padding:0;">
@@ -1212,7 +1226,7 @@
                             </div>
                             <div>
                                 <div class="contact-label">Address</div>
-                                <div class="contact-value">Tingakat 31, KOMTAR, 10000 George Town, Pulau Pinang</div>
+                                <div class="contact-value">Tingkat 31, KOMTAR, 10000 George Town, Pulau Pinang</div>
                             </div>
                         </div>
                     </div>
@@ -1220,7 +1234,6 @@
             </div>
         </section>
 
-        <!-- VALUE CARDS -->
         <section class="value-strip" aria-labelledby="value-heading">
             <div class="wrap">
                 <p class="section-label reveal">Why register with us</p>
@@ -1252,7 +1265,6 @@
             </div>
         </section>
 
-        <!-- ABOUT + CONTACT CARD -->
         <section class="about-section" aria-labelledby="about-heading">
             <div class="wrap">
                 <div class="about-grid">
@@ -1310,7 +1322,6 @@
             </div>
         </section>
 
-        <!-- OUR PROGRAMME -->
         <section class="programme-section" aria-labelledby="programme-heading">
             <div class="wrap">
                 <div class="reveal" style="text-align:center; margin-bottom:2rem;">
@@ -1319,7 +1330,6 @@
                     <p class="section-lead" style="margin:0 auto;">A programme empowering Penang entrepreneurs with access to government agencies, incentives, grants, and business guidance.</p>
                 </div>
 
-                <!-- CAROUSEL -->
                 <div class="carousel reveal" id="programmeCarousel">
                     <div class="carousel-track" id="carouselTrack">
                         <div class="carousel-slide">
@@ -1333,7 +1343,6 @@
                         </div>
                     </div>
 
-                    <!-- Arrows -->
                     <button class="carousel-btn carousel-prev" id="prevBtn" aria-label="Previous">
                         <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
                     </button>
@@ -1341,7 +1350,6 @@
                         <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                     </button>
 
-                    <!-- Dots -->
                     <div class="carousel-dots" id="carouselDots">
                         <button class="carousel-dot active" data-index="0"></button>
                         <button class="carousel-dot" data-index="1"></button>
@@ -1363,7 +1371,6 @@
         </section>
     </main>
 
-    <!-- FOOTER -->
     <footer>
         <div class="wrap">
             <div class="footer-top">
@@ -1401,7 +1408,6 @@
         </div>
     </footer>
 
-    <!-- MOBILE FLOATING CTA -->
     <div class="mobile-cta" aria-label="Mobile registration button">
         <a href="{{ route('register') }}" class="mobile-cta-btn">
             <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
@@ -1409,7 +1415,6 @@
         </a>
     </div>
 
-    <!-- SCROLL REVEAL SCRIPT -->
     <script>
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1433,7 +1438,6 @@
         });
     </script>
 
-    <!-- CAROUSEL SCRIPT -->
     <script>
         const track = document.getElementById('carouselTrack');
         const dots = document.querySelectorAll('.carousel-dot');
