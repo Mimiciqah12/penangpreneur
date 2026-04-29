@@ -484,11 +484,26 @@
                                     <label for="product_name">Product Name</label>
                                     <input type="text" id="product_name" name="product_name" value="{{ old('product_name') }}" placeholder="Enter product name" required>
                                 </div>
+                                <div class="field">
+                                    <label for="address">Address</label>
+                                    <input type="text" id="address" name="address" value="{{ old('address') }}" placeholder="Enter address" required>
+                                </div>
+                                <div class="field">
+                                    <label for="premises_address">Premises Address</label>
+                                    <input type="text" id="premises_address" name="premises_address" value="{{ old('premises_address') }}" placeholder="Enter premises address" required>
+                                </div>
 
                                 <div class="field">
                                     <label for="product_image">Product Image</label>
                                     <input type="file" id="product_image" name="product_image" accept="image/*">
                                 </div>
+                                <div class="field">
+                                    <label for="product_image">Product Image</label>
+                                    <input type="file" id="product_image" name="product_image" accept="image/*">
+                                </div>
+                                 <div class="field">
+                                    <label for="premises_image">Premises Image</label>
+                                    <input type="file" id="premises_image" name="premises_image" accept="image/*">
 
                                 <div class="field span-2">
                                     <label for="product_description">Product Description</label>
