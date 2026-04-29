@@ -63,6 +63,58 @@
             padding-right: 1.5rem;
         }
 
+        /* ── ANIMATIONS ── */
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Hero load animations */
+        .hero-eyebrow  { animation: fadeIn  0.5s ease both; animation-delay: 0.1s; }
+        .hero h1       { animation: fadeUp  0.6s ease both; animation-delay: 0.25s; }
+        .hero-lead     { animation: fadeUp  0.6s ease both; animation-delay: 0.4s; }
+        .hero-cta      { animation: fadeUp  0.6s ease both; animation-delay: 0.55s; }
+        .hero-trust    { animation: fadeIn  0.6s ease both; animation-delay: 0.7s; }
+
+        /* Scroll-reveal base */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered children */
+        .reveal-stagger > * {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .reveal-stagger.visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0s; }
+        .reveal-stagger.visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.12s; }
+        .reveal-stagger.visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.24s; }
+        .reveal-stagger.visible > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.36s; }
+
         /* ── TOP CONTACT BAR ── */
         .top-bar {
             background: var(--brand);
@@ -98,7 +150,6 @@
         }
 
         .top-bar-item:hover { color: #fff; }
-
         .top-bar-item svg { flex-shrink: 0; opacity: 0.7; }
 
         .top-bar-right {
@@ -115,11 +166,6 @@
             background: #22c55e;
             display: inline-block;
             animation: pulse-dot 2s infinite;
-        }
-
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
         }
 
         /* ── HEADER ── */
@@ -242,9 +288,7 @@
             border: 1.5px solid var(--accent);
         }
 
-        .btn-outline:hover {
-            background: var(--accent-soft);
-        }
+        .btn-outline:hover { background: var(--accent-soft); }
 
         .btn-lg {
             padding: 0.8rem 1.75rem;
@@ -282,15 +326,59 @@
             display: grid;
             gap: 3rem;
             align-items: center;
-            padding: 4rem 0 4.5rem;
+            padding: 4rem 1.5rem 4.5rem;
         }
 
         @media (min-width: 900px) {
             .hero-grid {
-                grid-template-columns: 1fr;
-                max-width: 48rem;
-                padding: 5rem 0 5.5rem;
+                grid-template-columns: 1fr 1fr;
+                max-width: 100%;
+                padding: 5rem 2rem 5.5rem;
             }
+        }
+
+        /* Hero image slide-in */
+        .hero-image-wrap {
+            display: none;
+        }
+
+        @media (min-width: 900px) {
+            .hero-image-wrap {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                transform: translateX(60px);
+                transition: opacity 0.85s ease 0.3s, transform 0.85s ease 0.3s;
+            }
+
+            .hero-image-wrap.visible {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 480px;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 24px 64px -12px rgba(0,0,0,0.5);
+            object-fit: cover;
+            aspect-ratio: 4/3;
+        }
+
+        .hero-logo-img {
+            width: 100%;
+            max-width: 460px;
+            object-fit: contain;
+            /* subtle glow effect to make logo pop on dark hero */
+            filter: drop-shadow(0 8px 32px rgba(96,165,250,0.25));
+            animation: floatLogo 4s ease-in-out infinite;
+        }
+
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0px); }
+            50%       { transform: translateY(-10px); }
         }
 
         .hero-eyebrow {
@@ -405,9 +493,6 @@
 
         .hero-trust-item svg { color: #60a5fa; flex-shrink: 0; }
 
-        /* Hero card */
-
-
         /* ── CONTACT INFO STRIP ── */
         .contact-strip {
             background: var(--surface);
@@ -426,11 +511,14 @@
             gap: 1rem;
             padding: 1.5rem 1.75rem;
             border-right: 1px solid var(--border);
-            transition: background 0.15s;
+            transition: background 0.2s ease, transform 0.2s ease;
         }
 
         .contact-item:last-child { border-right: none; }
-        .contact-item:hover { background: var(--accent-soft); }
+        .contact-item:hover {
+            background: var(--accent-soft);
+            transform: translateY(-2px);
+        }
 
         .contact-icon {
             width: 42px;
@@ -442,6 +530,12 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .contact-item:hover .contact-icon {
+            background: var(--accent);
+            color: #fff;
         }
 
         .contact-label {
@@ -514,7 +608,7 @@
             padding: 1.75rem;
             position: relative;
             overflow: hidden;
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
         }
 
         .value-card::before {
@@ -524,13 +618,13 @@
             height: 3px;
             background: linear-gradient(90deg, var(--accent), #60a5fa);
             opacity: 0;
-            transition: opacity 0.2s;
+            transition: opacity 0.25s;
         }
 
         .value-card:hover {
             border-color: #bfdbfe;
             box-shadow: var(--shadow);
-            transform: translateY(-2px);
+            transform: translateY(-4px);
         }
 
         .value-card:hover::before { opacity: 1; }
@@ -545,6 +639,13 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 1rem;
+            transition: background 0.25s, color 0.25s, transform 0.25s;
+        }
+
+        .value-card:hover .value-icon {
+            background: var(--accent);
+            color: #fff;
+            transform: scale(1.08);
         }
 
         .value-card h3 {
@@ -562,7 +663,70 @@
             line-height: 1.6;
         }
 
+        /* ── SLIDE IN FROM SIDES ── */
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.75s ease, transform 0.75s ease;
+        }
 
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.75s ease 0.15s, transform 0.75s ease 0.15s;
+        }
+
+        .slide-in-left.visible,
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ── PROGRAMME SECTION ── */
+        .programme-section {
+            background: var(--surface);
+            padding: 4rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .programme-grid {
+            display: grid;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .programme-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .programme-image {
+            width: 100%;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            object-fit: cover;
+        }
+
+        .programme-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .prog-tag {
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.3rem 0.75rem;
+            border-radius: 999px;
+            border: 1px solid #bfdbfe;
+            letter-spacing: 0.02em;
+        }
+
+        @media (max-width: 640px) {
+            .programme-section { padding: 2.5rem 0; }
+        }
 
         /* ── ABOUT ── */
         .about-section {
@@ -578,9 +742,7 @@
         }
 
         @media (min-width: 768px) {
-            .about-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+            .about-grid { grid-template-columns: 1fr 1fr; }
         }
 
         .about-section p {
@@ -598,6 +760,12 @@
             border-radius: var(--radius-lg);
             padding: 1.75rem;
             box-shadow: var(--shadow);
+            transition: box-shadow 0.25s ease, transform 0.25s ease;
+        }
+
+        .info-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
         }
 
         .info-card-title {
@@ -616,6 +784,7 @@
             align-items: flex-start;
             padding: 0.75rem 0;
             border-bottom: 1px solid var(--border);
+            transition: background 0.15s;
         }
 
         .info-row:last-child { border-bottom: none; padding-bottom: 0; }
@@ -706,9 +875,7 @@
         }
 
         @media (min-width: 640px) {
-            .footer-top {
-                grid-template-columns: 1.5fr 1fr 1fr;
-            }
+            .footer-top { grid-template-columns: 1.5fr 1fr 1fr; }
         }
 
         .footer-brand .logo-primary { color: #fff; font-size: 1.25rem; }
@@ -758,13 +925,11 @@
             color: rgba(255,255,255,0.35);
         }
 
-        /* ── MOBILE REGISTER BUTTON (floating) ── */
+        /* ── MOBILE REGISTER BUTTON ── */
         .mobile-cta {
             display: none;
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             z-index: 50;
             background: var(--surface);
             border-top: 1px solid var(--border);
@@ -773,14 +938,48 @@
         }
 
         @media (max-width: 640px) {
+            /* General */
             .mobile-cta { display: block; }
             body { padding-bottom: 5rem; }
-            .top-bar-contacts { gap: 0.4rem 1rem; }
-            .contact-strip-inner { grid-template-columns: 1fr 1fr; }
-            .contact-item { padding: 1.1rem 1rem; border-right: none; border-bottom: 1px solid var(--border); }
-            .contact-item:nth-child(odd) { border-right: 1px solid var(--border); }
+
+            /* Top bar — show only phone on mobile, hide address & email */
+            .top-bar-contacts .top-bar-item:not(:first-child) { display: none; }
+            .top-bar-inner { justify-content: space-between; }
+
+            /* Hero — more padding & breathe room */
+            .hero-grid { padding: 2.5rem 1.5rem 3rem; }
+            .hero h1 { font-size: 2rem; }
+            .hero-lead { font-size: 0.975rem; }
+
+            /* Hero buttons — stack full width */
+            .hero-cta { flex-direction: column; gap: 0.6rem; }
+            .btn-hero, .btn-hero-ghost {
+                width: 100%;
+                justify-content: center;
+                padding: 0.9rem 1.5rem;
+            }
+
+            /* Contact strip — single column, clean list */
+            .contact-strip-inner {
+                grid-template-columns: 1fr;
+            }
+            .contact-item {
+                padding: 1rem 1.25rem;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
             .contact-item:last-child { border-bottom: none; }
-            .hero-grid { padding: 3rem 0 3.5rem; }
+
+            /* Value cards — single column */
+            .value-grid { grid-template-columns: 1fr; }
+
+            /* About section */
+            .about-grid { gap: 2rem; }
+            .info-card { padding: 1.25rem; }
+
+            /* Section spacing */
+            .value-strip { padding: 2.5rem 0; }
+            .about-section { padding: 2.5rem 0; }
         }
 
         .mobile-cta-btn {
@@ -799,7 +998,6 @@
             box-shadow: 0 4px 16px -4px rgba(30,64,175,0.4);
         }
 
-        /* Hide mobile CTA on large screens */
         @media (min-width: 641px) {
             .mobile-cta { display: none !important; }
         }
@@ -883,8 +1081,9 @@
                         </a>
                     </div>
                 </div>
-
-
+                <div class="hero-image-wrap" id="heroImg">
+                    <img src="{{ asset('images/TREND_Logo_transparent.png') }}" alt="TREND — Rural Development, Agrotechnology & Food Security, and Entrepreneurship" class="hero-logo-img">
+                </div>
             </div>
         </section>
 
@@ -892,7 +1091,7 @@
         <section id="contact" aria-label="Contact information">
             <div class="contact-strip">
                 <div class="wrap" style="padding:0;">
-                    <div class="contact-strip-inner">
+                    <div class="contact-strip-inner reveal-stagger">
                         <div class="contact-item">
                             <div class="contact-icon">
                                 <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
@@ -937,10 +1136,10 @@
         <!-- VALUE CARDS -->
         <section class="value-strip" aria-labelledby="value-heading">
             <div class="wrap">
-                <p class="section-label">Why register with us</p>
-                <h2 id="value-heading" class="section-title">Everything you need, in one place</h2>
-                <p class="section-lead">A streamlined, official channel for Penang entrepreneurs to register their business and products with the relevant agencies.</p>
-                <div class="value-grid">
+                <p class="section-label reveal">Why register with us</p>
+                <h2 id="value-heading" class="section-title reveal">Everything you need, in one place</h2>
+                <p class="section-lead reveal">A streamlined, official channel for Penang entrepreneurs to register their business and products with the relevant agencies.</p>
+                <div class="value-grid reveal-stagger">
                     <article class="value-card">
                         <div class="value-icon">
                             <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
@@ -966,11 +1165,11 @@
             </div>
         </section>
 
-<!-- ABOUT + CONTACT CARD -->
+        <!-- ABOUT + CONTACT CARD -->
         <section class="about-section" aria-labelledby="about-heading">
             <div class="wrap">
                 <div class="about-grid">
-                    <div>
+                    <div class="reveal">
                         <p class="section-label">About this portal</p>
                         <h2 id="about-heading" class="section-title">Supporting Penang entrepreneurs</h2>
                         <p>This platform supports new business registrations under the department's oversight. It is not intended for updates to existing registrations; those should be handled directly with the department.</p>
@@ -979,7 +1178,7 @@
                             <a href="{{ route('register') }}" class="btn btn-primary btn-lg">Start your registration</a>
                         </div>
                     </div>
-                    <div>
+                    <div class="reveal" style="transition-delay: 0.15s;">
                         <div class="info-card">
                             <div class="info-card-title">📋 Organisation Details</div>
                             <div class="info-row">
@@ -1018,6 +1217,28 @@
                                     <div class="info-row-value"><a href="mailto:info@penangpreneur.gov.my">info@penangpreneur.gov.my</a></div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- OUR PROGRAMME -->
+        <section class="programme-section" aria-labelledby="programme-heading">
+            <div class="wrap">
+                <div class="programme-grid">
+                    <div class="slide-in-left">
+                        <img src="{{ asset('images/programme-banner.png') }}" alt="Jelajah Usahawan Pulau Pinang" class="programme-image">
+                    </div>
+                    <div class="slide-in-right">
+                        <p class="section-label">Our Programme</p>
+                        <h2 id="programme-heading" class="section-title">Jelajah Usahawan Pulau Pinang</h2>
+                        <p style="font-size:0.9375rem; color:var(--text-muted); line-height:1.75; margin-bottom:1rem;">
+                            A programme by the Pejabat EXCO Pembangunan Luar Bandar, Agroteknologi & Keterjaminan Makanan dan Keusahawanan to empower Penang entrepreneurs with access to government agencies, incentives, grants, and business guidance.
+                        </p>
+                        
+                        <div style="margin-top:1.75rem;">
+                            <a href="{{ route('register') }}" class="btn btn-primary btn-lg">Daftar Sekarang</a>
                         </div>
                     </div>
                 </div>
@@ -1070,6 +1291,30 @@
             Register Your Business — Free
         </a>
     </div>
+
+    <!-- SCROLL REVEAL SCRIPT -->
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.reveal, .reveal-stagger, .slide-in-left, .slide-in-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Hero image slides in on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const heroImg = document.getElementById('heroImg');
+                if (heroImg) heroImg.classList.add('visible');
+            }, 400);
+        });
+    </script>
 
 </body>
 </html>

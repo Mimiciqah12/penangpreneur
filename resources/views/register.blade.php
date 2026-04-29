@@ -456,12 +456,14 @@
                                     <label for="agency_name">Agency Name</label>
                                     <select id="agency_name" name="agency_name" required>
                                         <option value="" disabled {{ old('agency_name') ? '' : 'selected' }}>Select an agency</option>
-                                        <option value="MARDI" {{ old('agency_name') === 'MARDI' ? 'selected' : '' }}>MARDI</option>
-                                        <option value="NAFAS" {{ old('agency_name') === 'NAFAS' ? 'selected' : '' }}>NAFAS</option>
+                                        <option value="ICU" {{ old('agency_name') === 'ICU' ? 'selected' : '' }}>ICU</option>
+                                        <option value="KEMAS" {{ old('agency_name') === 'KEMAS' ? 'selected' : '' }}>KEMAS</option>
                                         <option value="FAMA" {{ old('agency_name') === 'FAMA' ? 'selected' : '' }}>FAMA</option>
-                                        <option value="LPP" {{ old('agency_name') === 'LPP' ? 'selected' : '' }}>LPP</option>
-                                        <option value="Jabatan Pertanian" {{ old('agency_name') === 'Jabatan Pertanian' ? 'selected' : '' }}>Jabatan Pertanian</option>
-                                        <option value="Penang Agrotech" {{ old('agency_name') === 'Penang Agrotech' ? 'selected' : '' }}>Penang Agrotech</option>
+                                        <option value="PDC" {{ old('agency_name') === 'PDC' ? 'selected' : '' }}>PDC</option>
+                                        <option value="MARA" {{ old('agency_name') === 'MARA' ? 'selected' : '' }}>MARA</option>
+                                        <option value="TEKUN" {{ old('agency_name') === 'TEKUN' ? 'selected' : '' }}>TEKUN</option>
+                                        <option value="PERDA" {{ old('agency_name') === 'PERDA' ? 'selected' : '' }}>PERDA</option>
+                                        <option value="RISDA" {{ old('agency_name') === 'RISDA' ? 'selected' : '' }}>RISDA</option>
                                     </select>
                                 </div>
 
