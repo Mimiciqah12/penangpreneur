@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\URL; // Baris ini ditambah
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,7 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Blok kod ini ditambah untuk memaksa HTTPS di Render
+        // Memaksa sistem menggunakan pautan HTTPS (selamat) 
+        // hanya apabila ia tidak berada di localhost komputer ('local')
         if (env('APP_ENV') !== 'local') {
             URL::forceScheme('https');
         }
