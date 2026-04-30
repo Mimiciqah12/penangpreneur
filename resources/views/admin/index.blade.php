@@ -502,7 +502,8 @@
         /* ── TABLE ── */
         .table-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
-        table { width: 100%; border-collapse: collapse; min-width: 900px; }
+        /* Expanded min-width to accommodate new columns */
+        table { width: 100%; border-collapse: collapse; min-width: 1100px; }
 
         thead th {
             font-size: 0.7rem;
@@ -510,7 +511,7 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--text-muted);
-            padding: 0.9rem 1.5rem;
+            padding: 0.9rem 1.25rem;
             background: #f8fafc;
             text-align: left;
             white-space: nowrap;
@@ -524,8 +525,18 @@
         tbody td {
             font-size: 0.875rem;
             color: var(--text);
-            padding: 0.95rem 1.5rem;
+            padding: 0.95rem 1.25rem;
             vertical-align: middle;
+        }
+
+        /* Truncate long address fields */
+        .td-address {
+            max-width: 180px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--text-muted);
+            font-size: 0.825rem;
         }
 
         .td-name { font-weight: 600; }
@@ -845,9 +856,12 @@
                                         <th>#</th>
                                         <th>Reference</th>
                                         <th>Full name</th>
+                                        <th>Phone</th>
                                         <th>Email</th>
+                                        <th>Address</th>
                                         <th>Agency</th>
                                         <th>Category</th>
+                                        <th>Premises address</th>
                                         <th>Registered</th>
                                         <th>Actions</th>
                                     </tr>
@@ -858,9 +872,20 @@
                                             <td>{{ (method_exists($registrations, 'firstItem') ? $registrations->firstItem() : 1) + $index }}</td>
                                             <td><span class="td-ref">{{ $reg->reference_number }}</span></td>
                                             <td class="td-name">{{ $reg->full_name }}</td>
+                                            <td>{{ $reg->phone_number }}</td>
                                             <td>{{ $reg->email }}</td>
+                                            <td>
+                                                <span class="td-address" title="{{ $reg->address }}">
+                                                    {{ $reg->address }}
+                                                </span>
+                                            </td>
                                             <td>{{ $reg->agency_name }}</td>
                                             <td><span class="badge-category">{{ $reg->business_category }}</span></td>
+                                            <td>
+                                                <span class="td-address" title="{{ $reg->premises_address }}">
+                                                    {{ $reg->premises_address }}
+                                                </span>
+                                            </td>
                                             <td>{{ $reg->created_at->format('d M Y') }}</td>
                                             <td>
                                                 <div class="row-actions">
