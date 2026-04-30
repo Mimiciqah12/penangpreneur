@@ -37,7 +37,6 @@
             --serif: 'Cormorant Garamond', 'Times New Roman', Times, serif;
             --sans: 'Inter', system-ui, -apple-system, sans-serif; 
             
-            /* DIBESARKAN: Supaya logo rapat ke hujung seperti di index admin */
             --max-wide-header: 90rem; 
             --max-wide-content: 56rem; 
         }
@@ -76,7 +75,6 @@
         header {
             background: var(--surface);
             border-bottom: 1px solid var(--border);
-            /* FUNGSI STICKY TELAH DIBUANG DI SINI SUPAYA TIADA OVERLAP/PERTINDIHAN */
             z-index: 30;
         }
 
@@ -237,7 +235,7 @@
         .row:last-child { border-bottom: none; }
 
         .key {
-            width: 11rem;
+            width: 12rem; /* Dibesarkan sedikit untuk muat perkataan yang panjang */
             flex-shrink: 0;
             font-size: 0.875rem;
             font-weight: 600;
@@ -295,24 +293,22 @@
             flex-wrap: wrap;
             gap: 0.75rem;
             justify-content: flex-end;
-            align-items: center; /* Memastikan butang sejajar di tengah secara menegak */
+            align-items: center;
             margin-top: 2rem;
             padding-top: 1.5rem;
             border-top: 1px solid var(--border);
         }
 
-        /* Buang ruang kosong (margin) pada form yang membalut butang delete */
         .actions form {
             margin: 0;
             display: flex;
         }
 
-        /* Gabungkan gaya asas supaya kedua-dua butang TEPAK SAMA saiz */
         .btn-secondary, .btn-danger {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            height: 44px; /* Tetapkan ketinggian statik */
+            height: 44px;
             padding: 0 1.5rem;
             font-size: 0.875rem;
             font-weight: 600;
@@ -322,7 +318,6 @@
             transition: all 0.15s ease;
         }
 
-        /* Gaya khusus untuk butang kelabu */
         .btn-secondary {
             background: #fff;
             color: var(--text-muted);
@@ -334,11 +329,10 @@
             border-color: #cbd5e1; 
         }
 
-        /* Gaya khusus untuk butang merah */
         .btn-danger {
             background: #b91c1c;
             color: #fff;
-            border: 1px solid transparent; /* Tambah border lutsinar supaya matematik saiznya sama dengan butang kelabu */
+            border: 1px solid transparent;
             letter-spacing: 0.04em;
         }
 
@@ -423,6 +417,11 @@
                     <div class="key">Email address</div>
                     <div class="val">{{ $registration->email }}</div>
                 </div>
+                <!-- RUANGAN BAHARU DITAMBAH: Alamat peribadi -->
+                <div class="row">
+                    <div class="key">Address</div>
+                    <div class="val">{{ $registration->address }}</div>
+                </div>
             </section>
 
             <section class="card" aria-label="Business details">
@@ -437,6 +436,11 @@
                     <div class="key">Business category</div>
                     <div class="val"><span class="badge-category">{{ $registration->business_category }}</span></div>
                 </div>
+                <!-- RUANGAN BAHARU DITAMBAH: Alamat Premis -->
+                <div class="row">
+                    <div class="key">Premises address</div>
+                    <div class="val">{{ $registration->premises_address }}</div>
+                </div>
                 <div class="row">
                     <div class="key">Product name</div>
                     <div class="val">{{ $registration->product_name }}</div>
@@ -450,6 +454,17 @@
                     <div class="val">
                         @if($registration->product_image)
                             <img src="{{ asset('storage/' . $registration->product_image) }}" alt="Product image" class="product-image">
+                        @else
+                            <span class="no-image">No image uploaded</span>
+                        @endif
+                    </div>
+                </div>
+                <!-- RUANGAN BAHARU DITAMBAH: Gambar Premis -->
+                <div class="row">
+                    <div class="key">Premises image</div>
+                    <div class="val">
+                        @if($registration->premises_image)
+                            <img src="{{ asset('storage/' . $registration->premises_image) }}" alt="Premises image" class="product-image">
                         @else
                             <span class="no-image">No image uploaded</span>
                         @endif
