@@ -22,7 +22,7 @@ class RegistrationController extends Controller
      */
     public function store(Request $request)
     {
-        // 1. Validate all fields
+        // 1. Validate all fields (Termasuk medan address dan premises yang baru)
         $validated = $request->validate([
             'full_name'           => 'required|string|max:255',
             'phone_number'        => 'required|string|max:20',
@@ -30,14 +30,22 @@ class RegistrationController extends Controller
             'agency_name'         => 'required|string|max:255',
             'business_category'   => 'required|string|max:255',
             'product_name'        => 'required|string|max:255',
+            'address'             => 'required|string',
+            'premises_address'    => 'required|string',
             'product_image'       => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'premises_image'      => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'product_description' => 'required|string',
         ]);
 
-        // 2. Handle product image upload
-        $imagePath = null;
+        // 2. Handle image uploads
+        $productImagePath = null;
         if ($request->hasFile('product_image')) {
-            $imagePath = $request->file('product_image')->store('product_images', 'public');
+            $productImagePath = $request->file('product_image')->store('product_images', 'public');
+        }
+
+        $premisesImagePath = null;
+        if ($request->hasFile('premises_image')) {
+            $premisesImagePath = $request->file('premises_image')->store('premises_images', 'public');
         }
 
         // 3. Generate a unique reference number e.g. ENT-2026-XXXX
@@ -51,23 +59,26 @@ class RegistrationController extends Controller
             'agency_name'         => $validated['agency_name'],
             'business_category'   => $validated['business_category'],
             'product_name'        => $validated['product_name'],
-            'product_image'       => $imagePath,
+            'address'             => $validated['address'],
+            'premises_address'    => $validated['premises_address'],
+            'product_image'       => $productImagePath,
+            'premises_image'      => $premisesImagePath,
             'product_description' => $validated['product_description'],
             'reference_number'    => $referenceNumber,
         ]);
 
        // 5. Send confirmation email to the user
-try {
-    Mail::send('emails.registration_confirmation', [
-        'registration' => $registration,
-    ], function ($message) use ($registration) {
-        $message->to($registration->email, $registration->full_name)
-                ->subject('Registration Confirmation — Entrepreneur Portal');
-    });
-} catch (\Exception $e) {
-    \Log::error('Mail failed: ' . $e->getMessage());
-    // Continue even if mail fails — don't crash the server
-}
+        try {
+            Mail::send('emails.registration_confirmation', [
+                'registration' => $registration,
+            ], function ($message) use ($registration) {
+                $message->to($registration->email, $registration->full_name)
+                        ->subject('Registration Confirmation — Entrepreneur Portal');
+            });
+        } catch (\Exception $e) {
+            \Log::error('Mail failed: ' . $e->getMessage());
+            // Continue even if mail fails — don't crash the server
+        }
 
         // 6. Redirect to success page, passing the reference number
         return redirect()->route('register.success')
