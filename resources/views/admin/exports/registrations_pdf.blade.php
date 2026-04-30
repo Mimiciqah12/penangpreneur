@@ -4,204 +4,214 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Registrations Report</title>
     <style>
-        body { font-family: Arial, sans-serif; font-size: 10px; color: #1e293b; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            color: #1e293b;
+            background: #fff;
+        }
 
         /* ── Header ── */
-        .report-header { text-align: center; margin-bottom: 18px; border-bottom: 2px solid #1e40af; padding-bottom: 10px; }
-        .report-header h2 { font-size: 16px; color: #1e40af; margin: 0 0 4px; }
-        .report-header p { margin: 2px 0; color: #475569; font-size: 9px; }
+        .header {
+            border-bottom: 3px solid #1e40af;
+            padding-bottom: 10px;
+            margin-bottom: 14px;
+        }
+
+        .header-title {
+            font-size: 17px;
+            font-weight: bold;
+            color: #1e40af;
+            margin-bottom: 3px;
+        }
+
+        .header-sub {
+            font-size: 8.5px;
+            color: #64748b;
+            margin-bottom: 1px;
+        }
 
         /* ── Table ── */
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; table-layout: fixed; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
 
-        th, td {
-            border: 1px solid #cbd5e1;
-            padding: 6px 7px;
+        thead tr {
+            background: #1e293b;
+        }
+
+        thead th {
+            color: #fff;
+            font-size: 8px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 7px 6px;
             text-align: left;
-            vertical-align: top;
+            border: none;
+        }
+
+        thead th.center { text-align: center; }
+
+        tbody tr { border-bottom: 1px solid #e2e8f0; }
+        tbody tr:nth-child(even) { background: #f8fafc; }
+        tbody tr:nth-child(odd)  { background: #ffffff; }
+
+        tbody td {
+            padding: 7px 6px;
+            vertical-align: middle;
+            border: none;
             word-wrap: break-word;
         }
 
-        th {
-            background-color: #1e40af;
-            color: #ffffff;
-            font-size: 9px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-        }
+        /* Column widths */
+        .col-no     { width: 4%;  text-align: center; color: #94a3b8; font-weight: bold; font-size: 9px; }
+        .col-ref    { width: 11%; color: #1e40af; font-weight: bold; font-size: 9px; }
+        .col-name   { width: 13%; font-weight: 600; }
+        .col-email  { width: 14%; color: #475569; }
+        .col-phone  { width: 9%;  }
+        .col-addr   { width: 13%; color: #475569; font-size: 9px; }
+        .col-agency { width: 8%;  }
+        .col-cat    { width: 8%;  text-align: center; }
+        .col-paddr  { width: 13%; color: #475569; font-size: 9px; }
+        .col-img    { width: 6%;  text-align: center; }
+        .col-date   { width: 8%;  color: #475569; }
 
-        tbody tr:nth-child(even) { background-color: #f8fafc; }
-        tbody tr:nth-child(odd)  { background-color: #ffffff; }
-
-        /* ── Cells ── */
-        .cell-no    { width: 3%;  text-align: center; font-weight: bold; color: #64748b; }
-        .cell-ref   { width: 10%; font-weight: bold; color: #1e40af; font-size: 9px; }
-        .cell-name  { width: 12%; font-weight: 600; }
-        .cell-email { width: 13%; }
-        .cell-phone { width: 9%;  }
-        .cell-addr  { width: 14%; font-size: 9px; color: #334155; }
-        .cell-agency{ width: 9%;  }
-        .cell-cat   { width: 8%;  }
-        .cell-paddr { width: 14%; font-size: 9px; color: #334155; }
-        .cell-img   { width: 8%;  text-align: center; }
-        .cell-date  { width: 7%;  white-space: nowrap; color: #475569; }
-
-        /* ── Images ── */
-        .thumbnail {
-            max-width: 55px;
-            max-height: 55px;
-            object-fit: cover;
-            border-radius: 3px;
-            border: 1px solid #e2e8f0;
-            display: block;
-            margin: 0 auto 3px;
-        }
-
-        .img-label {
-            font-size: 7.5px;
-            color: #94a3b8;
-            text-align: center;
-            display: block;
-        }
-
-        .no-photo {
-            color: #94a3b8;
-            font-style: italic;
-            font-size: 8px;
-            display: block;
-            text-align: center;
-        }
-
-        /* ── Category badge ── */
+        /* Category badge */
         .badge {
             display: inline-block;
             background: #eff6ff;
             color: #1e40af;
             border: 1px solid #bfdbfe;
             border-radius: 3px;
-            padding: 1px 4px;
+            padding: 2px 5px;
             font-size: 8px;
             font-weight: bold;
         }
 
-        /* ── Footer ── */
-        .report-footer {
-            margin-top: 16px;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 6px;
+        /* Images */
+        .thumbnail {
+            max-width: 48px;
+            max-height: 48px;
+            object-fit: cover;
+            border-radius: 3px;
+            border: 1px solid #e2e8f0;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .no-photo {
+            color: #cbd5e1;
             font-size: 8px;
-            color: #94a3b8;
-            display: flex;
-            justify-content: space-between;
+            font-style: italic;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            margin-top: 14px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 7px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Report Header -->
-    <div class="report-header">
-        <h2>PenangPreneur Registrations Report</h2>
-        <p>Pejabat EXCO Pembangunan Luar Bandar, Agroteknologi &amp; Keterjaminan Makanan Dan Keusahawanan</p>
-        <p>Generated on: {{ date('d F Y, h:i A') }} &nbsp;|&nbsp; Total records: {{ count($registrations) }}</p>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-title">PenangPreneur Registrations Report</div>
+        <div class="header-sub">Pejabat EXCO Pembangunan Luar Bandar, Agroteknologi &amp; Keterjaminan Makanan Dan Keusahawanan</div>
+        <div class="header-sub">Generated: {{ date('d F Y, h:i A') }} &nbsp;&bull;&nbsp; Total records: {{ count($registrations) }}</div>
     </div>
 
+    <!-- Table -->
     <table>
         <thead>
             <tr>
-                <th class="cell-no">No.</th>
-                <th class="cell-ref">Reference</th>
-                <th class="cell-name">Full Name</th>
-                <th class="cell-email">Email</th>
-                <th class="cell-phone">Phone</th>
-                <th class="cell-addr">Address</th>
-                <th class="cell-agency">Agency</th>
-                <th class="cell-cat">Category</th>
-                <th class="cell-paddr">Premises Address</th>
-                <th class="cell-img">Product Image</th>
-                <th class="cell-img">Premises Image</th>
-                <th class="cell-date">Registered</th>
+                <th class="col-no">#</th>
+                <th class="col-ref">Reference</th>
+                <th class="col-name">Full Name</th>
+                <th class="col-email">Email</th>
+                <th class="col-phone">Phone</th>
+                <th class="col-addr">Address</th>
+                <th class="col-agency">Agency</th>
+                <th class="col-cat center">Category</th>
+                <th class="col-paddr">Premises Address</th>
+                <th class="col-img center">Product</th>
+                <th class="col-img center">Premises</th>
+                <th class="col-date">Registered</th>
             </tr>
         </thead>
         <tbody>
             @foreach($registrations as $index => $reg)
+
+            @php
+                // Product image
+                $productPath = $reg->product_image ? public_path('storage/' . $reg->product_image) : null;
+                $productB64  = null;
+                if ($productPath && file_exists($productPath)) {
+                    $ext        = strtolower(pathinfo($productPath, PATHINFO_EXTENSION));
+                    $productB64 = 'data:image/' . $ext . ';base64,' . base64_encode(file_get_contents($productPath));
+                }
+
+                // Premises image
+                $premisesPath = $reg->premises_image ? public_path('storage/' . $reg->premises_image) : null;
+                $premisesB64  = null;
+                if ($premisesPath && file_exists($premisesPath)) {
+                    $ext         = strtolower(pathinfo($premisesPath, PATHINFO_EXTENSION));
+                    $premisesB64 = 'data:image/' . $ext . ';base64,' . base64_encode(file_get_contents($premisesPath));
+                }
+            @endphp
+
             <tr>
+                <td class="col-no">{{ $index + 1 }}</td>
+                <td class="col-ref">{{ $reg->reference_number }}</td>
+                <td class="col-name">{{ $reg->full_name }}</td>
+                <td class="col-email">{{ $reg->email }}</td>
+                <td class="col-phone">{{ $reg->phone_number ?? '—' }}</td>
+                <td class="col-addr">{{ $reg->address ?? '—' }}</td>
+                <td class="col-agency">{{ $reg->agency_name }}</td>
+                <td class="col-cat"><span class="badge">{{ $reg->business_category }}</span></td>
+                <td class="col-paddr">{{ $reg->premises_address ?? '—' }}</td>
 
-                {{-- No. --}}
-                <td class="cell-no">{{ $index + 1 }}</td>
-
-                {{-- Reference --}}
-                <td class="cell-ref">{{ $reg->reference_number }}</td>
-
-                {{-- Full Name --}}
-                <td class="cell-name">{{ $reg->full_name }}</td>
-
-                {{-- Email --}}
-                <td class="cell-email">{{ $reg->email }}</td>
-
-                {{-- Phone --}}
-                <td class="cell-phone">{{ $reg->phone_number ?? '—' }}</td>
-
-                {{-- Personal Address --}}
-                <td class="cell-addr">{{ $reg->address ?? '—' }}</td>
-
-                {{-- Agency --}}
-                <td class="cell-agency">{{ $reg->agency_name }}</td>
-
-                {{-- Category --}}
-                <td class="cell-cat"><span class="badge">{{ $reg->business_category }}</span></td>
-
-                {{-- Premises Address --}}
-                <td class="cell-paddr">{{ $reg->premises_address ?? '—' }}</td>
-
-                {{-- Product Image --}}
-                <td class="cell-img">
-                    @php
-                        $productPath   = $reg->product_image   ? public_path('storage/' . $reg->product_image)   : null;
-                        $productBase64 = null;
-                        if ($productPath && file_exists($productPath)) {
-                            $ext           = pathinfo($productPath, PATHINFO_EXTENSION);
-                            $productBase64 = 'data:image/' . $ext . ';base64,' . base64_encode(file_get_contents($productPath));
-                        }
-                    @endphp
-                    @if($productBase64)
-                        <img src="{{ $productBase64 }}" class="thumbnail" alt="Product">
-                        <span class="img-label">Product</span>
+                <td class="col-img">
+                    @if($productB64)
+                        <img src="{{ $productB64 }}" class="thumbnail" alt="Product">
                     @else
-                        <span class="no-photo">No image</span>
+                        <span class="no-photo">None</span>
                     @endif
                 </td>
 
-                {{-- Premises Image --}}
-                <td class="cell-img">
-                    @php
-                        $premisesPath   = $reg->premises_image   ? public_path('storage/' . $reg->premises_image)   : null;
-                        $premisesBase64 = null;
-                        if ($premisesPath && file_exists($premisesPath)) {
-                            $ext            = pathinfo($premisesPath, PATHINFO_EXTENSION);
-                            $premisesBase64 = 'data:image/' . $ext . ';base64,' . base64_encode(file_get_contents($premisesPath));
-                        }
-                    @endphp
-                    @if($premisesBase64)
-                        <img src="{{ $premisesBase64 }}" class="thumbnail" alt="Premises">
-                        <span class="img-label">Premises</span>
+                <td class="col-img">
+                    @if($premisesB64)
+                        <img src="{{ $premisesB64 }}" class="thumbnail" alt="Premises">
                     @else
-                        <span class="no-photo">No image</span>
+                        <span class="no-photo">None</span>
                     @endif
                 </td>
 
-                {{-- Registered Date --}}
-                <td class="cell-date">{{ $reg->created_at->format('d M Y') }}</td>
-
+                <td class="col-date">{{ $reg->created_at->format('d M Y') }}</td>
             </tr>
+
             @endforeach
         </tbody>
     </table>
 
-    <!-- Report Footer -->
-    <div class="report-footer">
-        <span>&copy; {{ date('Y') }} PenangPreneur Portal — Admin Export</span>
-        <span>Tingkat 31, KOMTAR, 10000 Pulau Pinang &nbsp;|&nbsp; info@penangpreneur.gov.my</span>
+    <!-- Footer -->
+    <div class="footer">
+        <table width="100%" style="border:none;">
+            <tr>
+                <td style="border:none; padding:0; font-size:8px; color:#94a3b8;">
+                    &copy; {{ date('Y') }} PenangPreneur Portal &mdash; Admin Export
+                </td>
+                <td style="border:none; padding:0; font-size:8px; color:#94a3b8; text-align:right;">
+                    Tingkat 31, KOMTAR, 10000 Pulau Pinang &nbsp;|&nbsp; info@penangpreneur.gov.my
+                </td>
+            </tr>
+        </table>
     </div>
 
 </body>

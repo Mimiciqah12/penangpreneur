@@ -8,9 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* =========================================
-           1. CSS Variables & Reset
-           ========================================= */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
@@ -21,24 +18,23 @@
             --surface: #ffffff;
             --bg: #f1f5f9;
             --brand: #0f172a;
-            --brand-hover: #1e293b;
             --accent: #1e40af;
             --accent-soft: #f0f4fa;
             --danger: #b91c1c;
-            
+
             --focus: 2px solid #2563eb;
             --focus-offset: 2px;
             --radius: 6px;
             --radius-lg: 12px;
-            
+
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
             --serif: 'Cormorant Garamond', 'Times New Roman', Times, serif;
-            --sans: 'Inter', system-ui, -apple-system, sans-serif; 
-            
-            --max-wide-header: 90rem; 
-            --max-wide-content: 56rem; 
+            --sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+            --max-wide-header: 90rem;
+            --max-wide-content: 56rem;
         }
 
         body {
@@ -59,19 +55,11 @@
 
         .logo:focus-visible { border-radius: 4px; }
 
-        .wrap {
-            width: 100%;
-            margin: 0 auto;
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
-        }
-
-        .wrap-header { max-width: var(--max-wide-header); }
+        .wrap { width: 100%; margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem; }
+        .wrap-header  { max-width: var(--max-wide-header); }
         .wrap-content { max-width: var(--max-wide-content); }
 
-        /* =========================================
-           2. Layout (Header, Main, Footer)
-           ========================================= */
+        /* ── Header ── */
         header {
             background: var(--surface);
             border-bottom: 1px solid var(--border);
@@ -104,12 +92,7 @@
             flex-shrink: 0;
         }
 
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.05;
-            gap: 0.15rem;
-        }
+        .logo-text { display: flex; flex-direction: column; line-height: 1.05; gap: 0.15rem; }
 
         .logo-primary {
             font-family: var(--serif);
@@ -127,11 +110,7 @@
             font-family: var(--sans);
         }
 
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
+        .nav-actions { display: flex; align-items: center; gap: 0.8rem; }
 
         .badge-admin {
             font-size: 0.7rem;
@@ -158,10 +137,7 @@
 
         .nav-link:hover { color: var(--text); }
 
-        main {
-            flex: 1;
-            background: var(--bg);
-        }
+        main { flex: 1; background: var(--bg); }
 
         main::before {
             content: '';
@@ -171,11 +147,8 @@
             opacity: 0.85;
         }
 
-        /* =========================================
-           3. Page Content & Cards
-           ========================================= */
+        /* ── Page ── */
         .page-inner { padding: 2.5rem 0 3rem; }
-
         .page-header { margin-bottom: 2rem; }
 
         .ref-tag {
@@ -203,6 +176,7 @@
             margin-top: 0.25rem;
         }
 
+        /* ── Cards ── */
         .card {
             background: var(--surface);
             border-radius: var(--radius-lg);
@@ -221,9 +195,6 @@
             letter-spacing: 0.08em;
             text-transform: uppercase;
             color: var(--text-light);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         .row {
@@ -235,7 +206,7 @@
         .row:last-child { border-bottom: none; }
 
         .key {
-            width: 12rem; /* Dibesarkan sedikit untuk muat perkataan yang panjang */
+            width: 12rem;
             flex-shrink: 0;
             font-size: 0.875rem;
             font-weight: 600;
@@ -243,14 +214,9 @@
             padding-right: 1rem;
         }
 
-        .val {
-            font-size: 0.95rem;
-            color: var(--text);
-            flex: 1;
-        }
+        .val { font-size: 0.95rem; color: var(--text); flex: 1; }
 
         .val-strong {
-            font-family: var(--sans);
             font-size: 1rem;
             font-weight: 700;
             color: var(--accent);
@@ -270,6 +236,7 @@
             border: 1px solid rgba(30, 64, 175, 0.18);
         }
 
+        /* ── Product image ── */
         .product-image {
             width: 100%;
             max-width: 320px;
@@ -277,6 +244,7 @@
             border: 1px solid var(--border);
             margin-top: 0.25rem;
             box-shadow: var(--shadow-sm);
+            display: block;
         }
 
         .no-image {
@@ -285,9 +253,7 @@
             font-style: italic;
         }
 
-       /* =========================================
-           4. Buttons & Footer
-           ========================================= */
+        /* ── Actions ── */
         .actions {
             display: flex;
             flex-wrap: wrap;
@@ -299,10 +265,7 @@
             border-top: 1px solid var(--border);
         }
 
-        .actions form {
-            margin: 0;
-            display: flex;
-        }
+        .actions form { margin: 0; display: flex; }
 
         .btn-secondary, .btn-danger {
             display: inline-flex;
@@ -324,10 +287,7 @@
             border: 1px solid var(--border);
         }
 
-        .btn-secondary:hover { 
-            color: var(--text); 
-            border-color: #cbd5e1; 
-        }
+        .btn-secondary:hover { color: var(--text); border-color: #cbd5e1; }
 
         .btn-danger {
             background: #b91c1c;
@@ -336,10 +296,9 @@
             letter-spacing: 0.04em;
         }
 
-        .btn-danger:hover { 
-            background: #991b1b; 
-        }
+        .btn-danger:hover { background: #991b1b; }
 
+        /* ── Footer ── */
         footer {
             background: var(--surface);
             padding: 1.5rem 0;
@@ -354,17 +313,10 @@
         }
 
         @media (min-width: 640px) {
-            .footer-inner {
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-            }
+            .footer-inner { flex-direction: row; align-items: center; justify-content: space-between; }
         }
 
-        .footer-copy {
-            font-size: 0.8125rem;
-            color: var(--text-light);
-        }
+        .footer-copy { font-size: 0.8125rem; color: var(--text-light); }
 
         @media (max-width: 640px) {
             .row { flex-direction: column; gap: 0.25rem; }
@@ -373,6 +325,7 @@
     </style>
 </head>
 <body>
+
     <header>
         <div class="wrap wrap-header header-inner">
             <a href="{{ url('/') }}" class="logo" aria-label="PenangPreneur Portal — Home">
@@ -391,16 +344,40 @@
 
     <main>
         <div class="wrap wrap-content page-inner">
+
             <header class="page-header">
                 <span class="ref-tag">{{ $registration->reference_number }}</span>
                 <h1>{{ $registration->full_name }}</h1>
                 <p class="date">Registered on {{ $registration->created_at->format('d F Y, h:i A') }}</p>
             </header>
 
+            {{-- Pre-compute images as Base64 so they always render
+                 regardless of whether storage is served via HTTP or not --}}
+            @php
+                // Product image
+                $productPath = $registration->product_image
+                    ? public_path('storage/' . $registration->product_image)
+                    : null;
+                $productSrc = null;
+                if ($productPath && file_exists($productPath)) {
+                    $ext        = strtolower(pathinfo($productPath, PATHINFO_EXTENSION));
+                    $productSrc = 'data:image/' . $ext . ';base64,' . base64_encode(file_get_contents($productPath));
+                }
+
+                // Premises image
+                $premisesPath = $registration->premises_image
+                    ? public_path('storage/' . $registration->premises_image)
+                    : null;
+                $premisesSrc = null;
+                if ($premisesPath && file_exists($premisesPath)) {
+                    $ext         = strtolower(pathinfo($premisesPath, PATHINFO_EXTENSION));
+                    $premisesSrc = 'data:image/' . $ext . ';base64,' . base64_encode(file_get_contents($premisesPath));
+                }
+            @endphp
+
+            {{-- Personal Information --}}
             <section class="card" aria-label="Personal information">
-                <div class="card-head">
-                    <span>Personal information</span>
-                </div>
+                <div class="card-head">Personal information</div>
                 <div class="row">
                     <div class="key">Reference number</div>
                     <div class="val val-strong">{{ $registration->reference_number }}</div>
@@ -417,17 +394,15 @@
                     <div class="key">Email address</div>
                     <div class="val">{{ $registration->email }}</div>
                 </div>
-                <!-- RUANGAN BAHARU DITAMBAH: Alamat peribadi -->
                 <div class="row">
                     <div class="key">Address</div>
                     <div class="val">{{ $registration->address }}</div>
                 </div>
             </section>
 
+            {{-- Business Details --}}
             <section class="card" aria-label="Business details">
-                <div class="card-head">
-                    <span>Business details</span>
-                </div>
+                <div class="card-head">Business details</div>
                 <div class="row">
                     <div class="key">Agency name</div>
                     <div class="val">{{ $registration->agency_name }}</div>
@@ -436,7 +411,6 @@
                     <div class="key">Business category</div>
                     <div class="val"><span class="badge-category">{{ $registration->business_category }}</span></div>
                 </div>
-                <!-- RUANGAN BAHARU DITAMBAH: Alamat Premis -->
                 <div class="row">
                     <div class="key">Premises address</div>
                     <div class="val">{{ $registration->premises_address }}</div>
@@ -449,22 +423,25 @@
                     <div class="key">Product description</div>
                     <div class="val">{{ $registration->product_description }}</div>
                 </div>
+
+                {{-- Product Image --}}
                 <div class="row">
                     <div class="key">Product image</div>
                     <div class="val">
-                        @if($registration->product_image)
-                            <img src="{{ asset('storage/' . $registration->product_image) }}" alt="Product image" class="product-image">
+                        @if($productSrc)
+                            <img src="{{ $productSrc }}" alt="Product image" class="product-image">
                         @else
                             <span class="no-image">No image uploaded</span>
                         @endif
                     </div>
                 </div>
-                <!-- RUANGAN BAHARU DITAMBAH: Gambar Premis -->
+
+                {{-- Premises Image --}}
                 <div class="row">
                     <div class="key">Premises image</div>
                     <div class="val">
-                        @if($registration->premises_image)
-                            <img src="{{ asset('storage/' . $registration->premises_image) }}" alt="Premises image" class="product-image">
+                        @if($premisesSrc)
+                            <img src="{{ $premisesSrc }}" alt="Premises image" class="product-image">
                         @else
                             <span class="no-image">No image uploaded</span>
                         @endif
@@ -474,12 +451,14 @@
 
             <div class="actions">
                 <a href="{{ route('admin.index') }}" class="btn-secondary">Back to list</a>
-                <form method="POST" action="{{ route('admin.destroy', $registration->id) }}" onsubmit="return confirm('Delete this registration? This cannot be undone.')">
+                <form method="POST" action="{{ route('admin.destroy', $registration->id) }}"
+                      onsubmit="return confirm('Delete this registration? This cannot be undone.')">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn-danger">Delete registration</button>
                 </form>
             </div>
+
         </div>
     </main>
 
@@ -489,5 +468,6 @@
             <span class="footer-copy">Admin view</span>
         </div>
     </footer>
+
 </body>
 </html>
